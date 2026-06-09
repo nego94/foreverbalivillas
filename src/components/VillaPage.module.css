@@ -1,0 +1,214 @@
+/* ==========================================
+   HERO
+   ========================================== */
+.hero {
+  position: relative;
+  height: 100dvh;
+  min-height: 580px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: clamp(50px, 8vh, 100px);
+  overflow: hidden;
+}
+
+.heroImg {
+  position: absolute;
+  inset: 0;
+}
+
+.heroBg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--forest-dark) 0%, #1a4540 60%, #2c6060 100%);
+  /* REPLACE: will be covered by real next/image */
+}
+
+.heroVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.3) 45%,
+    rgba(0,0,0,0.1) 100%
+  );
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  color: var(--white);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.heroTitle {
+  color: var(--white);
+  margin-bottom: 24px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.heroDivider {
+  width: 50%;
+  max-width: 500px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+  margin-bottom: 32px;
+}
+
+.heroAmenities {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px 40px;
+  max-width: 1000px;
+}
+
+.heroAmenityItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--white);
+  opacity: 0.9;
+}
+
+.heroAmenityIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* makes the PNG white */
+  opacity: 0.9;
+}
+
+/* ==========================================
+   VILLA DESCRIPTION
+   ========================================== */
+.descSection { 
+  background: var(--cream-dark);
+  padding: clamp(40px, 6vw, 80px) 0;
+}
+
+.descCenterWrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.descTitle {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  color: #333;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.descText {
+  color: #555;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   IMAGE SEPARATOR
+   ========================================== */
+.separatorSection {
+  width: 100%;
+}
+
+.separatorImageWrap {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  min-height: 400px;
+  max-height: 800px;
+  overflow: hidden;
+  position: relative;
+}
+
+.separatorImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.separatorImagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: var(--forest);
+}
+
+/* ==========================================
+   OTA
+   ========================================== */
+.otaSection {
+  background: var(--cream);
+  padding: 40px 0;
+}
+
+.otaInner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.otaLabel {
+  color: var(--gray);
+}
+
+.otaLogos {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.otaLogo {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+  opacity: 0.65;
+  transition: opacity var(--dur-fast);
+}
+
+.otaLogo:hover { opacity: 1; }
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 900px) {
+  .roomDisplay { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 580px) {
+  .heroCtas { flex-direction: column; align-items: flex-start; }
+}

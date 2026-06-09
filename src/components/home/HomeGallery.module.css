@@ -1,0 +1,180 @@
+/* ── Section — full bleed, no padding ─────────────────────────── */
+.section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #111;
+}
+
+/* ── Outer wrapper — captures pointer events ───────────────────── */
+.wrap {
+  width: 100%;
+  cursor: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y; /* allow vertical page scroll; we intercept horizontal */
+}
+
+/* ── Scroll track — overflow hidden; scrollLeft driven by JS ────── */
+.track {
+  display: flex;
+  overflow: hidden; /* JS controls scrollLeft, not CSS scroll */
+  width: 100%;
+}
+
+/* ── Each slide — 100% of wrapper width, 1440:1024 ratio ─────── */
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  aspect-ratio: 1440 / 1024;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Image ──────────────────────────────────────────────────────── */
+.img {
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Custom DRAG cursor ─────────────────────────────────────────── */
+.dragCursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(15, 10, 5, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  /* Only transition opacity + the scale part of transform */
+  transition: opacity 0.22s ease;
+  /* transform driven 100% by JS — no CSS transition on it to avoid lag */
+  will-change: transform;
+}
+
+.dragCursor span {
+  font-family: var(--font-sans);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  user-select: none;
+}
+
+.cursorVisible {
+  opacity: 1;
+}
+
+.cursorPress .dragCursor,
+.dragCursor.cursorPress {
+  background: rgba(5, 3, 1, 0.92);
+}
+
+/* ── Arrows — more visible ──────────────────────────────────────── */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.arrow:hover {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(255, 255, 255, 0.85);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrowLeft  { left:  clamp(16px, 3vw, 48px); }
+.arrowRight { right: clamp(16px, 3vw, 48px); }
+
+/* ── Slide counter — replaces dots ─────────────────────────────── */
+.counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+}
+
+.counterCurrent {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.9);
+  min-width: 20px;
+  text-align: right;
+}
+
+.counterTrack {
+  position: relative;
+  width: 80px;
+  height: 1px;
+  background: rgba(255,255,255,0.25);
+}
+
+.counterFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: rgba(255,255,255,0.9);
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.counterTotal {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.4);
+  min-width: 20px;
+}
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Restore default cursor — touch devices don't need the custom one */
+  .wrap { cursor: auto; }
+  .dragCursor { display: none; }
+
+  .arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Taller aspect ratio on portrait phones */
+  .slide { aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 480px) {
+  .slide { aspect-ratio: 3 / 2; }
+  .arrow { display: none; }
+}

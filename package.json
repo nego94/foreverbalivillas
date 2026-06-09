@@ -1,0 +1,28 @@
+{
+  "name": "foreverbalivillas",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "build:cf": "npx @opennextjs/cloudflare build",
+    "start": "next start",
+    "preview": "npx @opennextjs/cloudflare dev"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
+    "jose": "^6.2.3",
+    "next": "^16.2.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@opennextjs/cloudflare": "latest",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5",
+    "wrangler": "latest"
+  }
+}

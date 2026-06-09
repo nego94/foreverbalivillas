@@ -1,0 +1,188 @@
+/* ── Restore cursor inside cookie UI (overrides site-wide cursor:none) ── */
+:global(body.has-custom-cursor) .banner,
+:global(body.has-custom-cursor) .banner * {
+  cursor: auto !important;
+}
+:global(body.has-custom-cursor) .banner a,
+:global(body.has-custom-cursor) .banner button {
+  cursor: pointer !important;
+}
+:global(body.has-custom-cursor) .miniBtn {
+  cursor: pointer !important;
+}
+
+/* ── Full banner ── */
+.banner {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 9000;
+  width: clamp(280px, 90vw, 360px);
+  background: rgba(44, 95, 90, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Closing animation */
+.bannerClosing {
+  animation: slideDown 0.42s cubic-bezier(0.55, 0, 1, 0.45) both;
+  pointer-events: none;
+}
+
+@keyframes slideDown {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(24px); }
+}
+
+/* Live indicator dot */
+.dot {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.45); }
+  50%       { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+}
+
+.text {
+  padding-right: 16px;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 6px;
+}
+
+.body {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+}
+
+.link {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+
+.link:hover {
+  color: var(--white);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btnDecline,
+.btnAccept {
+  flex: 1;
+  height: 36px;
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btnDecline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.btnDecline:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.btnAccept {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--white);
+}
+
+.btnAccept:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Minimised shield icon ── */
+.miniBtn {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 9000;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(44, 95, 90, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.miniBtn:hover {
+  background: rgba(44, 95, 90, 0.97);
+  color: rgba(255, 255, 255, 0.95);
+  transform: scale(1.12);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 480px) {
+  .banner {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+  .miniBtn {
+    bottom: 16px;
+    left: 16px;
+  }
+}

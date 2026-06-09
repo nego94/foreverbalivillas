@@ -1,0 +1,422 @@
+.section {
+  background: var(--cream-dark);
+  padding: clamp(40px, 6vw, 80px) 0;
+}
+
+/* ==========================================
+   CAROUSEL
+   ========================================== */
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto 60px;
+  padding: 0 clamp(20px, 5vw, 60px);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.trackWrapper {
+  overflow: hidden;
+  flex: 1;
+}
+
+.track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  /* no scroll-snap — our momentum drag handles positioning */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: none; /* pointer events handle drag; prevent native scroll interference */
+}
+
+.track::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+.slide {
+  flex: 0 0 calc(33.333% - 11px);
+  min-width: 280px;
+  aspect-ratio: 4 / 3;
+  position: relative;
+  cursor: pointer;
+}
+
+.slideImg {
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.navBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.navBtn:hover:not(:disabled) {
+  background: var(--white);
+  transform: scale(1.05);
+}
+
+.navBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   TESTIMONIES
+   ========================================== */
+.testimoniesContainer {
+  text-align: center;
+  padding-top: 60px;
+  padding-bottom: 20px;
+}
+
+.testimoniesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding: 0 16px;
+}
+
+.testimoniesTitle {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #333;
+  margin: 0;
+}
+
+.testNavBtns {
+  display: flex;
+  gap: 12px;
+}
+
+.testNavBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  background: transparent;
+}
+
+.testNavBtn:hover:not(:disabled) {
+  background: #222;
+  border-color: #222;
+  color: #fff;
+}
+
+.testNavBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.testimoniesTrackWrapper {
+  overflow: hidden;
+  width: 100%;
+  /* active card 354px + track top-padding 80px + bottom-padding 32px + buffer */
+  height: 480px;
+}
+
+.testimoniesTrack {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end; /* all cards sit on the same bottom baseline */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x; /* touch uses native scroll; mouse uses pointer drag handlers */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  height: 100%;
+  padding: 80px 20px 32px; /* top space for the active card to grow into */
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.testimoniesTrack:active {
+  cursor: grabbing;
+}
+
+.testimoniesTrack::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Base card — FIXED height so all cards are identical regardless of content ── */
+.testimonyCard {
+  flex: 0 0 calc(33.333% - 11px);
+  min-width: 260px;
+  height: 310px;          /* fixed — never varies by content */
+  overflow: hidden;
+  background: #e8ddd0;
+  padding: 36px 28px;
+  border-radius: 2px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-snap-align: center;
+  transition: height 0.4s ease, padding-top 0.4s ease;
+  align-self: flex-end;   /* cards stick to the bottom baseline */
+}
+
+/* ── Active card: grows upward by exactly 44px — same delta every time ── */
+.testimonyCardActive {
+  height: 354px;          /* 310 + 44 — strictly consistent */
+  padding-top: 80px;      /* base 36 + 44 = content area stays the same size */
+}
+
+/* ==========================================
+   LIGHTBOX
+   ========================================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: var(--z-header, 9999);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lightboxClose {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 2;
+}
+
+.lightboxClose:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.lightboxContent {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  max-height: 80vh;
+  animation: zoomIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lightboxImg {
+  object-fit: contain;
+}
+
+/* ── Restore cursor inside lightbox (overrides site-wide cursor:none) ── */
+:global(body.has-custom-cursor) .lightbox,
+:global(body.has-custom-cursor) .lightbox * {
+  cursor: auto !important;
+}
+:global(body.has-custom-cursor) .lightboxClose,
+:global(body.has-custom-cursor) .lightboxNav {
+  cursor: pointer !important;
+}
+
+.lightboxNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 2;
+}
+
+.lightboxNav:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lightboxNavPrev { left: clamp(12px, 3vw, 40px); }
+.lightboxNavNext { right: clamp(12px, 3vw, 40px); }
+
+.lightboxCounter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+}
+
+.quoteIcon svg {
+  width: 40px;
+  height: 40px;
+  fill: #ccc;
+  margin-left: -6px;
+}
+
+/* No colour overrides needed — all cards share the same beige palette */
+
+.stars {
+  display: flex;
+  gap: 4px;
+}
+
+.testimonyText {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  /* Clamp to 5 lines — equalises height across all cards regardless of copy length */
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.authorRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.authorAvatar {
+  width: 34px;
+  height: 34px;
+  background: #222;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.authorAvatar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.authorName {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #333;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 900px) {
+  .testimonyCard {
+    flex: 0 0 calc(60% - 10px);
+  }
+  .slide {
+    flex: 0 0 calc(50% - 8px);
+  }
+  .testimoniesTrackWrapper {
+    height: 460px;
+  }
+}
+
+@media (max-width: 600px) {
+  .slide {
+    flex: 0 0 100%;
+  }
+
+  /* On mobile: all cards same fixed height, no grow effect */
+  .testimoniesTrackWrapper {
+    height: 430px;
+  }
+  .testimoniesTrack {
+    align-items: center;
+    padding: 16px 20px 24px;
+    height: 100%;
+  }
+  .testimonyCard {
+    flex: 0 0 85%;
+    height: 370px;
+  }
+  .testimonyCardActive {
+    height: 370px;
+    padding-top: 36px; /* reset — no grow effect on mobile */
+  }
+  .testimonyText {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+
+  .testimoniesHeader {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .carouselContainer {
+    padding: 0 20px;
+    gap: 10px;
+  }
+  .navBtn {
+    width: 36px;
+    height: 36px;
+  }
+  .navBtn svg {
+    width: 18px;
+    height: 18px;
+  }
+}

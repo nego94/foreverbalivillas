@@ -1,0 +1,351 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-header);
+  transition:
+    background var(--dur-base) var(--ease),
+    backdrop-filter var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom-color: rgba(0,0,0,0.06);
+}
+
+/* When nav is open, keep header visible */
+.header.navActive {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
+/* ── Forced-light pages (T&C, FAQ, journal posts) ──────────────────
+   Header sits over a light/cream background, so all elements go dark
+   from the very first render — no scroll required.
+   ------------------------------------------------------------------ */
+.header.forcedLight .bar         { background: var(--dark); }
+.header.forcedLight .navGroup    {
+  border-color: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.04);
+}
+.header.forcedLight .navGroup:hover {
+  border-color: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.08);
+}
+.header.forcedLight .logoImg     { filter: none !important; }
+.header.forcedLight .bookBtn     {
+  color: var(--dark);
+  border-color: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.04);
+}
+.header.forcedLight .bookBtn:hover {
+  background: var(--dark);
+  border-color: var(--dark);
+  color: var(--white);
+}
+/* navActive overrides forcedLight when menu opens */
+.header.navActive .bar           { background: var(--white); }
+.header.navActive .logoImg       { filter: brightness(0) invert(1) !important; }
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 150px;
+  padding: 50px clamp(20px, 4vw, 48px);
+  max-width: 100%;
+  transition: height 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Compact inner on scroll */
+.scrolled .inner {
+  height: 68px;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+/* Left */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+/* ── Nav group capsule — outer rounded bordered container ── */
+.navGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  height: 44px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 100px;
+  padding: 5px 5px 5px 14px;
+  cursor: pointer;
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.navGroup:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Hamburger inside the group */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: var(--white);
+  border-radius: 2px;
+  transition: background var(--dur-base);
+}
+
+.bar:nth-child(2) { width: 65%; }
+
+.scrolled .bar { background: var(--dark); }
+.navActive .bar { background: var(--white); }
+
+/* FEATURES pill — sits inside the navGroup capsule */
+.featuresLabel {
+  display: none;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 100px;
+  background: rgba(220, 205, 185, 0.88);
+  border: 1px solid rgba(200, 183, 158, 0.5);
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3d2e1e;
+  user-select: none;
+  white-space: nowrap;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+/* Show FEATURES pill on medium+ screens */
+@media (min-width: 600px) {
+  .featuresLabel { display: inline-flex; align-items: center; }
+}
+
+/* Scrolled adaptations */
+.scrolled .navGroup {
+  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.scrolled .navGroup:hover {
+  border-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.scrolled .featuresLabel {
+  background: rgba(200, 185, 165, 0.95);
+  border-color: rgba(160, 143, 120, 0.5);
+  color: #2a1e10;
+}
+
+/* Nav active state */
+.navActive .navGroup {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* BOOK NOW — ghost pill matching navGroup height */
+.bookBtn {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 100px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  white-space: nowrap;
+  line-height: 1;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.bookBtn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Scrolled state */
+.scrolled .bookBtn {
+  color: var(--dark);
+  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.scrolled .bookBtn:hover {
+  background: var(--dark);
+  border-color: var(--dark);
+  color: var(--white);
+}
+
+/* Nav open state */
+.navActive .bookBtn {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Book Now dropdown wrapper */
+.bookWrap {
+  position: relative;
+}
+
+.bookChevron {
+  margin-left: 6px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.bookBtnOpen .bookChevron {
+  transform: rotate(180deg);
+}
+
+.bookDropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 180px;
+  background: rgba(30, 55, 48, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 200;
+  animation: dropIn 0.18s ease;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.bookDropdownItem {
+  display: block;
+  padding: 14px 20px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+.bookDropdownItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+.bookDropdownItem + .bookDropdownItem {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Logo link wrapper */
+.logo {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logo image */
+.logoImg {
+  display: block;
+  width: 200px;
+  height: 100px;
+  transition: width 0.45s cubic-bezier(0.4,0,0.2,1), height 0.45s cubic-bezier(0.4,0,0.2,1), filter 0.45s var(--ease);
+}
+
+/* On scrolled (white header) — show logo in natural colour + shrink */
+.scrolled .logoImg {
+  filter: none !important;
+  width: 130px;
+  height: 65px;
+}
+
+/* On nav open — keep white */
+.navActive .logoImg {
+  filter: brightness(0) invert(1) !important;
+}
+
+
+/* Right side */
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 768px) {
+  .logoImg {
+    width: 110px;
+    height: 55px;
+  }
+  .scrolled .logoImg {
+    width: 90px;
+    height: 45px;
+  }
+  .inner {
+    height: 100px;
+    padding: 20px clamp(16px, 4vw, 24px);
+  }
+  .scrolled .inner {
+    height: 60px;
+  }
+  .bookBtn {
+    padding: 0 16px;
+    height: 38px;
+    font-size: 0.55rem;
+  }
+  .navGroup {
+    height: 38px;
+    padding: 4px 4px 4px 10px;
+  }
+  .hamburger {
+    width: 24px;
+    height: 24px;
+  }
+}

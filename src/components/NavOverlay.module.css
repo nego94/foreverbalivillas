@@ -1,0 +1,227 @@
+/* ── Overlay shell — horizontal split ────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  flex-direction: row;
+  clip-path: inset(0 0 100% 0);
+  overflow: hidden;
+}
+
+/* ── Left: image panel (40% width) ──────────────────────────────── */
+.imgPanel {
+  position: relative;
+  width: 40%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+/* Each image stacked absolutely, transitions in with clip-path slide-up */
+.imgSlide {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.imgSlideActive {
+  clip-path: inset(0 0 0 0); /* fully visible */
+}
+
+.imgSlideImg {
+  object-fit: cover;
+  object-position: center;
+  /* GPU hint without causing texture-blurring */
+  transform: translateZ(0);
+  image-rendering: high-quality;
+}
+
+/* Subtle right-edge gradient to blend into the right panel */
+.imgGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 70%, rgba(0,0,0,0.18) 100%);
+  pointer-events: none;
+}
+
+/* ── Right: content panel (60% width) ───────────────────────────── */
+.rightPanel {
+  flex: 1;
+  background: #f5f0eb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px clamp(32px, 6vw, 80px) 48px;
+  position: relative;
+  overflow-y: auto;
+  justify-content: space-between;
+}
+
+/* ── Close button ────────────────────────────────────────────────── */
+.close {
+  position: absolute;
+  top: 24px;
+  right: clamp(20px, 4vw, 48px);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2a1e14;
+  border: 1.5px solid rgba(0,0,0,0.18);
+  border-radius: 50%;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.close:hover {
+  border-color: #2a1e14;
+  background: rgba(0,0,0,0.06);
+}
+
+/* ── "Discover Pages" label ─────────────────────────────────────── */
+.discoverLabel {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.4);
+  margin-bottom: 28px;
+}
+
+/* ── Nav links ───────────────────────────────────────────────────── */
+.nav { margin-bottom: 64px; }
+
+.nav ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 40px;
+  list-style: none;
+}
+
+.navLink {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+  font-weight: 300;
+  color: rgba(0,0,0,0.55);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  transition: color 0.22s ease, letter-spacing 0.3s ease;
+  position: relative;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 1.5px;
+  background: #9c8d82;
+  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.navLink:hover {
+  color: #1a1208;
+  letter-spacing: 0.02em;
+}
+
+.navLink:hover::after { width: 100%; }
+.navLink.active { color: #1a1208; }
+.navLink.active::after { width: 48px; }
+
+/* ── Bottom meta block ───────────────────────────────────────────── */
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.metaGroup {}
+
+.metaLabel {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.38);
+  margin-bottom: 8px;
+}
+
+.metaLinks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.metaLink {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: rgba(0,0,0,0.6);
+  transition: color 0.2s;
+}
+
+.metaLink:hover { color: #1a1208; }
+
+.metaSep {
+  color: rgba(0,0,0,0.2);
+  font-size: 0.75rem;
+}
+
+/* ── Social icons ────────────────────────────────────────────────── */
+.socialRow {
+  display: flex;
+  gap: 14px;
+}
+
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  color: rgba(0,0,0,0.55);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.socialIcon:hover {
+  background: rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.35);
+  color: #1a1208;
+}
+
+/* ── Terms ───────────────────────────────────────────────────────── */
+.termsLink {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: rgba(0,0,0,0.38);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.termsLink:hover { color: #1a1208; }
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Stack vertically on mobile — hide image panel */
+  .overlay { flex-direction: column; }
+  .imgPanel { display: none; }
+  .rightPanel {
+    padding: 80px 24px 48px;
+    justify-content: flex-start;
+    padding-top: 100px;
+  }
+  .nav ul { grid-template-columns: 1fr; gap: 0; }
+  .navLink { font-size: 1.6rem; }
+}

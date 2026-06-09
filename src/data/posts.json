@@ -1,0 +1,41 @@
+[
+  {
+    "slug": "art-of-slow-living",
+    "title": "The Art of Slow Living: A Balinese Way of Being",
+    "excerpt": "Bali does not reveal itself quickly. It rewards those who are willing to sit still long enough to truly see it.",
+    "coverImage": "/images/journal/blog-image-1.jpg",
+    "gallery": [
+      "/images/journal/blog-image-1.jpg",
+      "/images/journal/blog-image-2.jpg",
+      "/images/journal/blog-image-3.jpg"
+    ],
+    "date": "2025-01-15",
+    "category": "Lifestyle"
+  },
+  {
+    "slug": "blog-fbv-1",
+    "title": "Lorem Ipsum Dolor sit Amet",
+    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.",
+    "coverImage": "/images/journal/blog-image-2.jpg",
+    "gallery": [
+      "/images/journal/blog-image-2.jpg",
+      "/images/journal/blog-image-3.jpg",
+      "/images/journal/blog-image-1.jpg"
+    ],
+    "date": "2025-02-10",
+    "category": "Travel Guides"
+  },
+  {
+    "slug": "blog-fbv-2",
+    "title": "Lorem Ipsum Dolor sit Amet",
+    "excerpt": "Sweeping ocean views, an infinity pool, and six spacious suites — Forever Pandawa is designed for moments that last forever.",
+    "coverImage": "/images/journal/blog-image-3.jpg",
+    "gallery": [
+      "/images/journal/blog-image-3.jpg",
+      "/images/journal/blog-image-1.jpg",
+      "/images/journal/blog-image-2.jpg"
+    ],
+    "date": "2025-03-05",
+    "category": "Villas"
+  }
+]

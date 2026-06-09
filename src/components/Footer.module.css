@@ -1,0 +1,231 @@
+.footer {
+  background: #1a2744;
+  color: rgba(255,255,255,0.8);
+  padding: 48px 0 0;
+  position: relative;
+}
+
+/* Same tile pattern as journal — subtle texture at low opacity */
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/patterns/fbv-pattern.svg');
+  background-repeat: repeat;
+  background-size: auto;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure all footer content sits above the pattern */
+.footer > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Logo row ── */
+.logoRow {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 44px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin: 0 clamp(24px, 6vw, 80px);
+}
+
+.logoBlock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.logoName {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.logoSub {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  font-weight: 300;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── 4-column grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  padding: 44px clamp(24px, 6vw, 80px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.col {}
+
+.colHead {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+
+.link {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 8px;
+  transition: color var(--dur-fast);
+}
+
+.link:hover { color: var(--white); }
+
+.navLink {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 12px;
+  transition: color var(--dur-fast);
+}
+
+.navLink:hover { color: var(--white); }
+
+/* Map iframe container */
+.mapWrap {
+  width: 100%;
+  aspect-ratio: 4/3;
+  max-height: 180px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.mapWrap iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Address blocks */
+.addressBlock {}
+
+.addressHead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.addressName {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--white);
+}
+
+.address {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 300;
+  font-style: normal;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.75;
+}
+
+/* ── Social ── */
+.social {
+  text-align: center;
+  padding: 36px clamp(24px, 6vw, 80px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.socialLabel {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7);
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.socialIcon:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: var(--white);
+  color: var(--white);
+}
+
+/* ── Bottom bar ── */
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px clamp(24px, 6vw, 80px);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.bottomLinks {
+  display: flex;
+  gap: 24px;
+}
+
+.bottomLinks a {
+  color: rgba(255,255,255,0.45);
+  transition: color var(--dur-fast);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bottomLinks a:hover { color: var(--white); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; gap: 28px; }
+  .bottom { flex-direction: column; text-align: center; }
+  .bottomLinks { gap: 14px; }
+}
